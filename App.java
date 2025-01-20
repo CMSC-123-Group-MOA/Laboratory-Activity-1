@@ -1,5 +1,8 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class App {
     private static void init_Frame(JFrame frame){
@@ -14,6 +17,15 @@ public class App {
     public static void main(String[] args) {
         JFrame mainFrame = new JFrame();
         init_Frame(mainFrame);
-        System.out.println("hello");                
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setBackground(Color.black);
+        mainFrame.add(mainPanel, BorderLayout.CENTER);
+
+        JPanel sidePanel = new JPanel();
+        sidePanel.setBackground(Color.RED);
+        sidePanel.setPreferredSize(new Dimension(300, 300));
+        
+        mainFrame.add(sidePanel, BorderLayout.EAST);
     }
 }
