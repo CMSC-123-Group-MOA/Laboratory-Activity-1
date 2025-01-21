@@ -7,9 +7,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import huff.AppVariables;
-
 import javax.swing.*;
+import javax.swing.border.Border;
+
+import util.AppVariables;
 
 public class MainFrame extends JFrame {
     JPanel buttonsPanel = new JPanel();
@@ -17,6 +18,7 @@ public class MainFrame extends JFrame {
     JButton compress = new JButton();
     JButton decompress = new JButton();
     JButton quit = new JButton();
+    GridBagConstraints gbc = new GridBagConstraints();
 
     public MainFrame() {
         initLayout();
@@ -30,6 +32,7 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setLayout(new BorderLayout());
+        add(buttonsPanel, BorderLayout.EAST);
     }
 
     private void addButtons() {
@@ -37,8 +40,6 @@ public class MainFrame extends JFrame {
         buttonDesign(compress, "COMPRESS");
         buttonDesign(decompress, "DECOMPRESS");
         buttonDesign(quit, "QUIT");
-
-        GridBagConstraints gbc = new GridBagConstraints();
 
         buttonsPanel.setLayout(new GridBagLayout());
         gbc.gridx = 0;
@@ -52,6 +53,9 @@ public class MainFrame extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.insets = new Insets(0, 0, 40, 40);
+        buttonsPanel.add(decompress, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
         buttonsPanel.add(quit, gbc);
     }
 
@@ -64,7 +68,7 @@ public class MainFrame extends JFrame {
     }
 
     public void start() {
-        setVisible(true);
         pack();
+        setVisible(true);
     }
 }
