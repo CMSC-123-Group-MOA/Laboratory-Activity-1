@@ -16,25 +16,17 @@ public class ImageEncoder {
             int height = image.getHeight();
             int pixelData[][] = new int[width][height];
 
-            // Loop through each pixel
-            // for (int y = 0; y < height; y++) {
-            //     for (int x = 0; x < width; x++) {
-            //         // Get RGB value of the pixel
-            //         pixelData[x][y] = image.getRGB(x, y);
-            //     }
-            // }
-            System.out.println("Pixel Data Encoded!");
-            // Print the encoded pixel data
-            // for (int y = 0; y < height; y++) {
-            //     for (int x = 0; x < width; x++) {
-            //         System.out.print(pixelData[x][y] + " ");
-            //     }
-            //     System.out.println();
-            // }
+            for (int y = 0; y < image_height; y++) {
+                for (int x = 0; x < image_width; x++) {
+                    pixelData[x][y] = image.getRGB(x, y);
+                }
+            }
 
-            FrequencyCounter freqC = new FrequencyCounter(pixelData, width, height);
+            System.out.println("Pixel Data Encoded!");
+            FrequencyCounter freqC = new FrequencyCounter(pixelData, image_width, image_height);
             
         } catch (IOException e) {
+            System.out.println("fuck");
             e.printStackTrace();
         }
     }
