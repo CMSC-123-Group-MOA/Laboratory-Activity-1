@@ -12,9 +12,9 @@ public class ImageEncoder {
             BufferedImage image = ImageIO.read(classLoader.getResourceAsStream("Images/ap.PNG"));
 
             // Get image dimensions
-            int width = image.getWidth();
-            int height = image.getHeight();
-            int pixelData[][] = new int[width][height];
+            int image_width = image.getWidth();
+            int image_height = image.getHeight();
+            int pixelData[][] = new int[image_width][image_height];
 
             for (int y = 0; y < image_height; y++) {
                 for (int x = 0; x < image_width; x++) {
