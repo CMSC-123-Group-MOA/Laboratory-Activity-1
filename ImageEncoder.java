@@ -7,6 +7,7 @@ public class ImageEncoder {
 
     public static void main(String[] args) {
         try {
+
             // Load the image
             BufferedImage image = ImageIO.read(new File("C:\\Users\\AXIE\\Documents\\CMSC 123\\Laboratory 1\\Laboratory-Activity-1\\Images\\ap.PNG"));
 
@@ -30,6 +31,9 @@ public class ImageEncoder {
             //     }
             //     System.out.println();
             // }
+
+            FrequencyCounter freqC = new FrequencyCounter(pixelData, width, height);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
