@@ -15,17 +15,19 @@ public class App {
     }
 
     public static void main(String[] args) {
-        JFrame mainFrame = new JFrame();
-        init_Frame(mainFrame);
+        // JFrame mainFrame = new JFrame();
+        // init_Frame(mainFrame);
 
-        JPanel mainPanel = new JPanel();
-        mainPanel.setBackground(Color.black);
-        mainFrame.add(mainPanel, BorderLayout.CENTER);
+        // JPanel mainPanel = new JPanel();
+        // mainPanel.setBackground(Color.black);
+        // mainFrame.add(mainPanel, BorderLayout.CENTER);
 
-        JPanel sidePanel = new JPanel();
-        sidePanel.setBackground(Color.RED);
-        sidePanel.setPreferredSize(new Dimension(300, 300));
+        // JPanel sidePanel = new JPanel();
+        // sidePanel.setBackground(Color.RED);
+        // sidePanel.setPreferredSize(new Dimension(300, 300));
         
-        mainFrame.add(sidePanel, BorderLayout.EAST);
+        // mainFrame.add(sidePanel, BorderLayout.EAST);
+             mainFrame mainframe = new mainFrame();
+                
     }
 }
