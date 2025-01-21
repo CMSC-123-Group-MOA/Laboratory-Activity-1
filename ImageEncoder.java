@@ -7,34 +7,24 @@ public class ImageEncoder {
 
     public static void main(String[] args) {
         try {
-
             // Load the image
-            BufferedImage image = ImageIO.read(new File("C:\\Users\\AXIE\\Documents\\CMSC 123\\Laboratory 1\\Laboratory-Activity-1\\Images\\ap.PNG"));
+            BufferedImage image = ImageIO.read(new File("/home/niguel/Documents/SS24-25/CMSC123-lab/Laboratory-Activity-1/Images/ap.PNG"));
+            
+            int image_width = image.getWidth();
+            int image_height = image.getHeight();
+            int pixelData[][] = new int[image_width][image_height];
 
-            // Get image dimensions
-            int width = image.getWidth();
-            int height = image.getHeight();
-            int pixelData[][] = new int[width][height];
-
-            // Loop through each pixel
-            for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
-                    // Get RGB value of the pixel
+            for (int y = 0; y < image_height; y++) {
+                for (int x = 0; x < image_width; x++) {
                     pixelData[x][y] = image.getRGB(x, y);
                 }
             }
-            System.out.println("Pixel Data Encoded!");
-            // Print the encoded pixel data
-            // for (int y = 0; y < height; y++) {
-            //     for (int x = 0; x < width; x++) {
-            //         System.out.print(pixelData[x][y] + " ");
-            //     }
-            //     System.out.println();
-            // }
 
-            FrequencyCounter freqC = new FrequencyCounter(pixelData, width, height);
+            System.out.println("Pixel Data Encoded!");
+            FrequencyCounter freqC = new FrequencyCounter(pixelData, image_width, image_height);
             
         } catch (IOException e) {
+            System.out.println("fuck");
             e.printStackTrace();
         }
     }

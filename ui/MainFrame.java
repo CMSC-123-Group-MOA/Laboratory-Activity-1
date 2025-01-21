@@ -14,6 +14,7 @@ import util.AppVariables;
 
 public class MainFrame extends JFrame {
     JPanel buttonsPanel = new JPanel();
+    JPanel ImagePanel = new JPanel();
     JButton add = new JButton();
     JButton compress = new JButton();
     JButton decompress = new JButton();
@@ -32,6 +33,7 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setLayout(new BorderLayout());
+        add(ImagePanel, BorderLayout.CENTER);
         add(buttonsPanel, BorderLayout.EAST);
     }
 
