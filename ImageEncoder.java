@@ -1,15 +1,14 @@
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import util.ResourceLoaders;
 
 public class ImageEncoder {
 
     public static void main(String[] args) {
-        ImageEncoder ie = new ImageEncoder();
-        ClassLoader classLoader = ie.getClass().getClassLoader();
+        ResourceLoaders loaders = new ResourceLoaders();
         try {
-            BufferedImage image = ImageIO.read(classLoader.getResourceAsStream("Images/ap.PNG"));
+            BufferedImage image = ImageIO.read(loaders.loadResource("Images/ap.PNG"));
 
             // Get image dimensions
             int image_width = image.getWidth();
