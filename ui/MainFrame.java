@@ -79,21 +79,25 @@ public class MainFrame extends JFrame {
     private void addButtonListeners(){
         MouseAdapter addListener = new MouseAdapter() {
             public void mousePressed(MouseEvent e){
+                System.out.println("add button pressed");
             }
         };
 
         MouseAdapter compressListener = new MouseAdapter() {
             public void mousePressed(MouseEvent e){
+                System.out.println("compress button pressed");
             }
         };
 
         MouseAdapter decompressListener = new MouseAdapter() {
             public void mousePressed(MouseEvent e){
+                System.out.println("decompress button pressed");
             }
         };
 
         MouseAdapter quitListener = new MouseAdapter() {
             public void mousePressed(MouseEvent e){
+                dispose();
             }
         };
 
