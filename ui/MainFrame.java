@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import util.AppVariables;
+import util.*;
 
 public class MainFrame extends JFrame {
     JPanel buttonsPanel = new JPanel();
@@ -22,10 +22,12 @@ public class MainFrame extends JFrame {
     JButton decompress = new JButton();
     JButton quit = new JButton();
     GridBagConstraints gbc = new GridBagConstraints();
-
+    
     public MainFrame() {
         initLayout();
         addButtons();
+        addButtonListeners();
+        System.out.println();
     }
 
     private void initLayout() {
@@ -48,7 +50,6 @@ public class MainFrame extends JFrame {
         buttonDesign(decompress, "DECOMPRESS");
         buttonDesign(quit, "QUIT");
 
-        addButtonListeners();
 
         buttonsPanel.setLayout(new GridBagLayout());
         gbc.gridx = 0;
@@ -79,6 +80,7 @@ public class MainFrame extends JFrame {
     private void addButtonListeners(){
         MouseAdapter addListener = new MouseAdapter() {
             public void mousePressed(MouseEvent e){
+                new ImageChooser(buttonsPanel);
                 System.out.println("add button pressed");
             }
         };
