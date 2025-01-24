@@ -20,10 +20,17 @@ public class Node implements Comparable<Node> {
         return frequency;
     }
 
+    public Node getRightNode() {
+        return rightNode;
+    }
+
+    public Node getLeftNode() {
+        return leftNode;
+    }
+
     @Override
     public int compareTo(Node o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
+        return Integer.compare(frequency, o.getFrequency());
     }
     
 }

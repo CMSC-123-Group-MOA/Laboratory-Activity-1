@@ -7,4 +7,8 @@ public class LeafNode extends Node {
         super(frequency);
         this.srgbVal = srgbVal;
     }
+
+    public int getSRGBval() {
+        return srgbVal;
+    }
 }
