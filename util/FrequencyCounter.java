@@ -1,3 +1,4 @@
+package util;
 import java.util.HashMap;
 
 public class FrequencyCounter {
@@ -21,13 +22,8 @@ public class FrequencyCounter {
 
         for(int x = 0; x < width; x++){
             for(int y = 0; y < height; y++){
-                for(int i : colorMap.keySet()){
-                    if(data[x][y] == colorMap.get(i)){
-                        frequencyCount[i]++;
-                    }
-                }
-                
-            }
+                frequencyCount[colorMap.getOrDefault(data[x][y], 0)]++;  
+            } 
             System.out.println("hello");
         }
         System.out.println(" done1");
