@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 
 import util.AppVariables;
 import util.GBCUtils;
-import util.ImageChooser;
 
 public class ButtonPanel extends JPanel{
     JButton add = new JButton();
@@ -45,7 +44,7 @@ public class ButtonPanel extends JPanel{
 
 
         setLayout(new GridBagLayout());
-        gbcu.setGBC(0, 0, new Insets(0, 0, 40, 40));
+        gbcu.setGBC(0, 0, new Insets(0, 40, 40, 40));
         add(add, gbc);
         gbcu.addY();
         add(train, gbc);

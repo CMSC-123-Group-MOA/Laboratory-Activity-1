@@ -1,5 +1,10 @@
 package util;
 import java.util.HashMap;
+import java.util.Map;
+
+import huff.HuffEncoder;
+import huff.HuffmanCoding;
+import huff.bintree.HuffmanNode;
 
 public class FrequencyCounter {
     HashMap<Integer, Integer> colorMap = new HashMap<Integer, Integer>();
@@ -31,5 +36,12 @@ public class FrequencyCounter {
         for(int i = 0; i < frequencyCount.length; i++){
             System.out.println("Color Key: " + i + " Frequency: " + frequencyCount[i]);
         }
+        
+        HuffEncoder huff = new HuffEncoder();
+        HuffmanNode root = HuffEncoder.buildTree(frequencyCount);
+        Map<Integer, String> huffmanCodes = new HashMap<>();
+        HuffmanCoding.generateCodes(root, "", huffmanCodes);
+
+        System.out.println("Huffman Codes: " + huffmanCodes);
     }    
 }
