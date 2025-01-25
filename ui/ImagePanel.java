@@ -1,10 +1,14 @@
 package ui;
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
 import javax.swing.JPanel;
 
 import util.AppVariables;
 
 public class ImagePanel extends JPanel {
+    BufferedImage image;
     public ImagePanel() {
         super();
         initLayout();
@@ -14,7 +18,14 @@ public class ImagePanel extends JPanel {
         setBorder(AppVariables.DEFAULT_BORDER);
     }
 
-    public void renderImage() {
-        // TODO: Add renderer implementation here.
+    public void renderImage(BufferedImage image) {
+        this.image = image;
+    }
+
+    @Override
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, null);
+        System.out.println("Repainted!");
     }
 }

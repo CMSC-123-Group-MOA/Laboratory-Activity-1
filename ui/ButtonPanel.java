@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -68,7 +69,12 @@ public class ButtonPanel extends JPanel{
         add.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e){
-                controller.newFile();
+                try {
+                    controller.newFile();
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
             }
         });
         train.addMouseListener(new MouseAdapter() {

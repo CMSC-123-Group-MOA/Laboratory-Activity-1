@@ -1,14 +1,18 @@
 package ui;
 
 import java.io.File;
+import java.io.IOException;
 
 import util.ImageChooser;
 import util.ImageEncoder;
+import util.ImageTrainer;
 
 public class Controller {
     MainFrame mainFrame;
     ImagePanel imagePanel;
     ImageEncoder imageEncoder;
+    ImageChooser imageChooser;
+    ImageTrainer imageTrain;
     File imageFile;
 
     public Controller(MainFrame mainFrame) {
@@ -21,9 +25,13 @@ public class Controller {
 
     /**
      * This is for the New Button
+     * @throws IOException 
      */
-    public void newFile() {
-        new ImageChooser(mainFrame);
+    public void newFile() throws IOException {
+        this.imageChooser = new ImageChooser(mainFrame);
+        this.imageFile = imageChooser.returnImageFile();
+        imagePanel.renderImage(imageChooser.returnBufferedImage());
+        mainFrame.repaint();
         System.out.println("New button pressed");
     }
 
@@ -31,6 +39,7 @@ public class Controller {
      * This is for the Train Button
      */
     public void train() {
+        this.imageTrain = new ImageTrainer(imageChooser);
         System.out.println("Train button pressed");
     }
 
@@ -38,6 +47,7 @@ public class Controller {
      * This is for the Compress button
      */
     public void compress() {
+        ImageEncoder imageEncoder = new ImageEncoder(imageFile, imageChooser, imageTrain);
         System.out.println("Compress button pressed");
     }
 
