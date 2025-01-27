@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -13,7 +14,6 @@ import javax.swing.JPanel;
 
 import util.AppVariables;
 import util.GBCUtils;
-import util.ImageChooser;
 
 public class ButtonPanel extends JPanel{
     JButton add = new JButton();
@@ -45,7 +45,7 @@ public class ButtonPanel extends JPanel{
 
 
         setLayout(new GridBagLayout());
-        gbcu.setGBC(0, 0, new Insets(0, 0, 40, 40));
+        gbcu.setGBC(0, 0, new Insets(0, 40, 40, 40));
         add(add, gbc);
         gbcu.addY();
         add(train, gbc);
@@ -69,7 +69,12 @@ public class ButtonPanel extends JPanel{
         add.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e){
-                controller.newFile();
+                try {
+                    controller.newFile();
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
             }
         });
         train.addMouseListener(new MouseAdapter() {

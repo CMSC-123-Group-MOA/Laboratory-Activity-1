@@ -31,5 +31,13 @@ public class FrequencyCounter {
         for(int i = 0; i < frequencyCount.length; i++){
             System.out.println("Color Key: " + i + " Frequency: " + frequencyCount[i]);
         }
+        
+        
     }    
+    public int[] returnFrequencies(){
+        return frequencyCount;
+    }
+    public HashMap<Integer, Integer> returnColorMap(){
+        return colorMap;
+    }
 }
