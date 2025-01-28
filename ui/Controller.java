@@ -47,7 +47,7 @@ public class Controller {
      * This is for the Compress button
      */
     public void compress() {
-        ImageEncoder imageEncoder = new ImageEncoder(imageFile, imageChooser, imageTrain);
+        this.imageEncoder = new ImageEncoder(imageFile, imageChooser, imageTrain);
         System.out.println("Compress button pressed");
     }
 
