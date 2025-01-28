@@ -1,13 +1,16 @@
 package util;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class ImageEncoder {
-    public ImageEncoder(File image, ImageChooser imageChooser, ImageTrainer imageTrain){
+    public ImageEncoder(File image, ImageChooser imageChooser, ImageTrainer imageTrain, File path){
         try {
             HashMap<Integer, Integer> colorMap = imageChooser.returnColorMap();
             int image_height = imageChooser.returnBufferedImage().getHeight();
@@ -17,23 +20,41 @@ public class ImageEncoder {
             
             
             // Encode each pixel as huffman code
-            String compressedPixelData[][] = new String[image_width][image_height];
+            StringBuilder str_pxl_data = new StringBuilder();
             for (int y = 0; y < image_height; y++) {
                 for (int x = 0; x < image_width; x++) {
                     int colorKey = colorMap.getOrDefault(pixelData[x][y], 0);
-                    compressedPixelData[x][y] = huffmanCodes.get(colorKey);
+                    str_pxl_data.append(huffmanCodes.get(colorKey));
                 }
             }
+            String compressedPixelData = str_pxl_data.toString();
             
             // Save encoded data to file
-            PrintStream imagehuff = new PrintStream(new File("Laboratory-Activity-1\\Images\\Compressed" + image.getName() + ".txt"));
-            for (int y = 0; y < image_height; y++) {
-                for (int x = 0; x < image_width; x++) {
-                    imagehuff.print(compressedPixelData[x][y] + " ");
+            File binpath = File.createTempFile("compressed_" + image.getName(), ".bin", path); // this just saves it to the chosen filedir
+            
+            // PrintStream imagehuff = new PrintStream(imgpath);
+            // for (int y = 0; y < image_height; y++) {
+            //     for (int x = 0; x < image_width; x++) {
+            //         imagehuff.print(compressedPixelData[x][y] + " ");
+            //     }
+            //     imagehuff.println();
+            // }
+            // imagehuff.close();
+
+            BitSet bits = new BitSet(compressedPixelData.length());
+            int bitcounter = 0;
+            for(Character c : compressedPixelData.toCharArray()) {
+                if(c.equals('1')) {
+                    bits.set(bitcounter);
                 }
-                imagehuff.println();
+                bitcounter++;
             }
-            imagehuff.close();
+
+            byte[] bytes = new byte[(bits.length() + 7) / 8];
+            bytes = bits.toByteArray();
+            OutputStream ostream = new FileOutputStream(binpath);
+            ostream.write(bytes);
+            ostream.close();
 
             System.out.println("Image encoded successfully");
             // ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("encoded_image.txt"));

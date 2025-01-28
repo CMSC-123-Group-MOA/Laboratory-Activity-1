@@ -18,7 +18,7 @@ public class ResourceLoaders {
         return classLoader.getResourceAsStream(relativePath);
     }
 
-    public File chooseFolder(Container parent) {
+    public static File chooseFolder(Container parent) {
         JFileChooser choose = new JFileChooser();
         choose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int option = choose.showOpenDialog(parent);

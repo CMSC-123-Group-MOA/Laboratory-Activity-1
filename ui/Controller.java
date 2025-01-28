@@ -3,9 +3,12 @@ package ui;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import util.ImageChooser;
 import util.ImageEncoder;
 import util.ImageTrainer;
+import util.ResourceLoaders;
 
 public class Controller {
     MainFrame mainFrame;
@@ -47,7 +50,13 @@ public class Controller {
      * This is for the Compress button
      */
     public void compress() {
-        this.imageEncoder = new ImageEncoder(imageFile, imageChooser, imageTrain);
+        File path = ResourceLoaders.chooseFolder(mainFrame);
+        if (path == null) {
+            JOptionPane.showMessageDialog(mainFrame, "Invalid input. Terminating operation...", "Fatal Error", JOptionPane.WARNING_MESSAGE);
+        } else {
+            this.imageEncoder = new ImageEncoder(imageFile, imageChooser, imageTrain, path);
+        }
+        
         System.out.println("Compress button pressed");
     }
 
