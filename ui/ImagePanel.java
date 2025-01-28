@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
@@ -8,7 +9,7 @@ import javax.swing.JPanel;
 import util.AppVariables;
 
 public class ImagePanel extends JPanel {
-    BufferedImage image;
+    Image scaledImage;
     public ImagePanel() {
         super();
         initLayout();
@@ -19,13 +20,15 @@ public class ImagePanel extends JPanel {
     }
 
     public void renderImage(BufferedImage image) {
-        this.image = image;
+        Image temp = image;
+        this.scaledImage = temp.getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT);
+
     }
 
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        g.drawImage(image, 0, 0, null);
+        g.drawImage(scaledImage, 0, 0, null);
         System.out.println("Repainted!");
     }
 }
