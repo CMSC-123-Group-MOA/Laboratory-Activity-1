@@ -3,14 +3,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class ImageEncoder {
-    public ImageEncoder(File image, ImageChooser imageChooser, ImageTrainer imageTrain, File path){
+    public ImageEncoder(File image, ImageChooser imageChooser, ImageTrainer imageTrain, File savepath){
         try {
             HashMap<Integer, Integer> colorMap = imageChooser.returnColorMap();
             int image_height = imageChooser.returnBufferedImage().getHeight();
@@ -30,16 +29,7 @@ public class ImageEncoder {
             String compressedPixelData = str_pxl_data.toString();
             
             // Save encoded data to file
-            File binpath = File.createTempFile("compressed_" + image.getName(), ".bin", path); // this just saves it to the chosen filedir
-            
-            // PrintStream imagehuff = new PrintStream(imgpath);
-            // for (int y = 0; y < image_height; y++) {
-            //     for (int x = 0; x < image_width; x++) {
-            //         imagehuff.print(compressedPixelData[x][y] + " ");
-            //     }
-            //     imagehuff.println();
-            // }
-            // imagehuff.close();
+            File binpath = File.createTempFile("compressed_" + image.getName(), ".bin", savepath); // this just saves it to the chosen filedir
 
             BitSet bits = new BitSet(compressedPixelData.length());
             int bitcounter = 0;
@@ -57,9 +47,6 @@ public class ImageEncoder {
             ostream.close();
 
             System.out.println("Image encoded successfully");
-            // ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("encoded_image.txt"));
-            // oos.writeObject(compressedPixelData);   
-            // oos.close();
 
 
         } catch (IOException e) {

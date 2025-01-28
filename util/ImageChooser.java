@@ -17,9 +17,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class ImageChooser {
     File file;
     ImageNew processedImage;
-    public ImageChooser(Component parent){
+    public ImageChooser(Component parent, File defaultDir){
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png", "bmp", "jpeg");
-        JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser(defaultDir);
         fileChooser.setFileFilter(filter);
         fileChooser.setName("Open New File");
         

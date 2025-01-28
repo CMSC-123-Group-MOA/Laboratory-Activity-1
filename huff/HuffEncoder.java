@@ -3,8 +3,6 @@ package huff;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-import huff.bintree.HuffmanNode;
-
 public class HuffEncoder {
     public static HuffmanNode buildTree(int[] pixelFrequencies){
         PriorityQueue<HuffmanNode> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(node -> node.frequency));
