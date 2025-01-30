@@ -16,12 +16,29 @@ public class HuffmanCoding {
         generateCodes(root.right, code + "1", huffmanCodes);
     }
 
-    public static Integer decodeIndiv(HuffmanNode node) {
-        if (node.left == null && node.right == null) {
-            return node.sRgb;
-        } else {
-            return null;
+    public static void reverseCodes(HuffmanNode root, String code, Map<String, Integer> huffmanCodes) {
+        if (root == null) {
+            return;
         }
+
+        if (root.left == null && root.right == null) {
+            huffmanCodes.put(code, root.sRgb);
+        }
+
+        reverseCodes(root.left, code + "0", huffmanCodes);
+        reverseCodes(root.right, code + "1", huffmanCodes);
     }
+
+    // public static Integer decodeIndiv(HuffmanNode node, char[] hufcode, int movesRemaining) {
+    //     if (node == null) {
+    //         return null;
+    //     }
+
+    //     if (node.left == null && node.right == null) {
+    //         return node.sRgb;
+    //     }
+
+        
+    // }
 }
 

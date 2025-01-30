@@ -24,7 +24,7 @@ public class ImageTrainer {
             
         // Generate binary code from huffmantree
         HuffmanCoding.generateCodes(root, "", huffmanCodes);
-        System.out.println("Huffman Codes: " + huffmanCodes);
+        // System.out.println("Huffman Codes: " + huffmanCodes);
 
         try {
             File savepath = new File(path, imageChooser.getImageFileName() + ".huf");
@@ -41,11 +41,12 @@ public class ImageTrainer {
     private void binWriteToHUF(HashMap<Integer, Integer> colorMap, File savepath) {
         try {
             OutputStream out = new FileOutputStream(savepath);
+            out.write(ByteBuffer.allocate(4).putInt(colorMap.size()).array()); // first 4 bytes store how many key-value pairs exist
             colorMap.forEach(
                 (sRGB, freq) -> {
                     try {
-                        out.write(ByteBuffer.allocate(4).putInt(sRGB).array(), 0, 4); // 4 bytes of sRGB
-                        out.write(ByteBuffer.allocate(4).putInt(freq).array(), 0, 4); // 4 bytes of freq
+                        out.write(ByteBuffer.allocate(4).putInt(sRGB).array()); // 4 bytes of sRGB
+                        out.write(ByteBuffer.allocate(4).putInt(freq).array()); // 4 bytes of freq
                     } catch (IOException e) {
                         // Dear god...
                         e.printStackTrace();

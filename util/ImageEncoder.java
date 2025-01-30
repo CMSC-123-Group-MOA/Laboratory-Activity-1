@@ -1,30 +1,29 @@
 package util;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.BitSet;
-import java.util.HashMap;
 import java.util.Map;
 
 
 public class ImageEncoder {
     public ImageEncoder(File image, ImageChooser imageChooser, ImageTrainer imageTrain, File savepath){
         try {
-            HashMap<Integer, Integer> colorMap = imageChooser.returnColorMap();
-            int image_height = imageChooser.returnBufferedImage().getHeight();
-            int image_width = imageChooser.returnBufferedImage().getWidth();
+            BufferedImage img = imageChooser.returnBufferedImage();
+            int image_height = img.getHeight();
+            int image_width = img.getWidth();
             Map<Integer, String> huffmanCodes = imageTrain.returnHuffCodes();
-            
             
             // Encode each pixel as huffman code
             StringBuilder str_pxl_data = new StringBuilder();
-
-            colorMap.forEach((sRGB, freq) ->
-                    {
-                        str_pxl_data.append(huffmanCodes.get(sRGB));
-                    });
+            for (int i = 0; i < image_width; i++) {
+                for (int j = 0; j < image_height; j++) {
+                    str_pxl_data.append(huffmanCodes.get(img.getRGB(i, j)));
+                }
+            }
             String compressedPixelData = str_pxl_data.toString();
             
             // Save encoded data to file
