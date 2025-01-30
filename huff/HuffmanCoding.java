@@ -2,8 +2,6 @@ package huff;
 
 import java.util.Map;
 
-import huff.bintree.HuffmanNode;
-
 public class HuffmanCoding {
     public static void generateCodes(HuffmanNode root, String code, Map<Integer, String> huffmanCodes) {
         if (root == null) {
@@ -16,6 +14,14 @@ public class HuffmanCoding {
 
         generateCodes(root.left, code + "0", huffmanCodes);
         generateCodes(root.right, code + "1", huffmanCodes);
+    }
+
+    public static Integer decodeIndiv(HuffmanNode node) {
+        if (node.left == null && node.right == null) {
+            return node.sRgb;
+        } else {
+            return null;
+        }
     }
 }
 

@@ -1,16 +1,25 @@
 package util;
 
-import java.io.InputStream;
+import java.awt.Container;
+import java.io.File;
+
+import javax.swing.JFileChooser;
 
 public class ResourceLoaders {
-    public ClassLoader classLoader = getClass().getClassLoader();
+    public File defaultdir;
 
-    /**
-     * Loads a given resource using the relative path. Returns an InputStream.
-     * @param relativePath - the relative path, uses forward slash.
-     * @return {@code InputStream} based on the relative path given
-     */
-    public InputStream loadResource(String relativePath) {
-        return classLoader.getResourceAsStream(relativePath);
+    public ResourceLoaders(File defaultdir) {
+        this.defaultdir = defaultdir;
+    }
+
+    public File chooseFolder(Container parent) {
+        JFileChooser choose = new JFileChooser(defaultdir);
+        choose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int option = choose.showOpenDialog(parent);
+        if (option == JFileChooser.APPROVE_OPTION) {
+            return choose.getSelectedFile();
+        } else {
+            return null;
+        }
     }
 }

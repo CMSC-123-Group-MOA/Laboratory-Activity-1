@@ -5,7 +5,7 @@ import java.util.Map;
 
 import huff.HuffEncoder;
 import huff.HuffmanCoding;
-import huff.bintree.HuffmanNode;
+import huff.HuffmanNode;
 
 public class ImageTrainer {
     Map<Integer, String> huffmanCodes;

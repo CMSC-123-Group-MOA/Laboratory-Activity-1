@@ -3,13 +3,11 @@ package huff;
 import java.util.HashMap;
 import java.util.Map;
 
-import huff.bintree.HuffmanNode;
-
 public class HuffmanTree {
-        HashMap<Integer, Integer> colorMap;
-        Map<Integer, String> huffmanCodes;
-        HuffEncoder huff;
-        HuffmanNode root;
+        private HashMap<Integer, Integer> colorMap;
+        private Map<Integer, String> huffmanCodes;
+        private HuffEncoder huff;
+        private HuffmanNode root;
         
     public HuffmanTree(int[] pixelFrequencies){
         this.huff = new HuffEncoder();
@@ -19,6 +17,7 @@ public class HuffmanTree {
     public HuffmanNode returnRoot(){
         return root;
     }
+    
     public void setColorMap(HashMap<Integer, Integer> colorMap){
         this.colorMap = colorMap;
     }

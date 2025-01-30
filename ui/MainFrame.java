@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.BorderLayout;
+import java.io.File;
 
 import javax.swing.*;
 
@@ -11,8 +12,8 @@ public class MainFrame extends JFrame {
     ImagePanel imagePanel;
     Controller controller;
     
-    public MainFrame() {
-        controller = new Controller(this);
+    public MainFrame(File currpath) {
+        controller = new Controller(this, currpath);
         initLayout();
         
         buttonsPanel = new ButtonPanel(controller);

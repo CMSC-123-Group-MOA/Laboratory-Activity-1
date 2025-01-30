@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -16,9 +17,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class ImageChooser {
     File file;
     ImageNew processedImage;
-    public ImageChooser(Component parent){
+    public ImageChooser(Component parent, File defaultDir){
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png", "bmp", "jpeg");
-        JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser(defaultDir);
         fileChooser.setFileFilter(filter);
         fileChooser.setName("Open New File");
         
@@ -27,6 +28,9 @@ public class ImageChooser {
         if(response == JFileChooser.APPROVE_OPTION){
             this.file = fileChooser.getSelectedFile();
             this.processedImage = new ImageNew(file);
+        } else {
+            JOptionPane.showMessageDialog(parent, "Invalid option. Operation has been cancelled.", 
+                                    "Invalid Operation", JOptionPane.ERROR_MESSAGE);
         }
 
     }
