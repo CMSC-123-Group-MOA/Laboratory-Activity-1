@@ -14,7 +14,7 @@ public class ImageTrainer {
     public ImageTrainer(ImageChooser imageChooser){
         // Make Huffman tree 
         new HuffEncoder();
-        HuffmanNode root = HuffEncoder.buildTree(imageChooser.returnFrequencyData());
+        HuffmanNode root = HuffEncoder.buildTree(imageChooser.returnColorMap());
         this.huffmanCodes = new HashMap<>();
             
         // Generate binary code from huffmantree

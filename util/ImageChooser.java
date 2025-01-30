@@ -15,8 +15,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * FileChooser
  */
 public class ImageChooser {
-    File file;
-    ImageNew processedImage;
+    private File file;
+    private ImageNew processedImage;
     public ImageChooser(Component parent, File defaultDir){
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png", "bmp", "jpeg");
         JFileChooser fileChooser = new JFileChooser(defaultDir);
@@ -44,6 +44,7 @@ public class ImageChooser {
     public int[] returnFrequencyData(){
         return processedImage.returnFrequencyData();
     }
+
     public File returnImageFile(){
         return file;
     }

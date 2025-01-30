@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.ByteBuffer;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,17 +16,15 @@ public class ImageEncoder {
             int image_height = imageChooser.returnBufferedImage().getHeight();
             int image_width = imageChooser.returnBufferedImage().getWidth();
             Map<Integer, String> huffmanCodes = imageTrain.returnHuffCodes();
-            int[][] pixelData = imageChooser.returnPixelData();
             
             
             // Encode each pixel as huffman code
             StringBuilder str_pxl_data = new StringBuilder();
-            for (int y = 0; y < image_height; y++) {
-                for (int x = 0; x < image_width; x++) {
-                    int colorKey = colorMap.getOrDefault(pixelData[x][y], 0);
-                    str_pxl_data.append(huffmanCodes.get(colorKey));
-                }
-            }
+
+            colorMap.forEach((sRGB, freq) ->
+                    {
+                        str_pxl_data.append(huffmanCodes.get(sRGB));
+                    });
             String compressedPixelData = str_pxl_data.toString();
             
             // Save encoded data to file
@@ -40,9 +39,13 @@ public class ImageEncoder {
                 bitcounter++;
             }
 
-            byte[] bytes = new byte[(bits.length() + 7) / 8];
+            byte[] width = ByteBuffer.allocate(4).putInt(image_width).array(); // First 4 bytes is  width
+            byte[] height = ByteBuffer.allocate(4).putInt(image_height).array(); // next 4 bytes is  height
+            byte[] bytes = new byte[(bits.length() + 7) / 8]; // then huffman coding
             bytes = bits.toByteArray();
             OutputStream ostream = new FileOutputStream(binpath);
+            ostream.write(width);
+            ostream.write(height);
             ostream.write(bytes);
             ostream.close();
 
