@@ -1,11 +1,13 @@
 package ui;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
 import util.ImageChooser;
+import util.ImageDecoder;
 import util.ImageEncoder;
 import util.ImageTrainer;
 import util.ResourceLoaders;
@@ -14,9 +16,11 @@ public class Controller {
     MainFrame mainFrame;
     ImagePanel imagePanel;
     ImageEncoder imageEncoder;
+    ImageDecoder imageDecoder;
     ImageChooser imageChooser;
     ImageTrainer imageTrain;
     File defaultpath, imageFile;
+    File hufPath, cmpPath;
     ResourceLoaders rloader;
     int loaded;
 
@@ -79,6 +83,13 @@ public class Controller {
      * This is for the Open button
      */
     public void decode() {
+        File hufPath = rloader.chooseFile(mainFrame, "Choose the .huf file");
+        File cmpPath = rloader.chooseFile(mainFrame, "Choose the .cmping file");
+        ImageDecoder imageDecoder = new ImageDecoder();
+        BufferedImage recodedImage = ImageDecoder.decode(hufPath, cmpPath);
+        imagePanel.renderImage(recodedImage);
+        mainFrame.repaint();
+        loaded = 1;
         System.out.println("Open button pressed");
     }
 
