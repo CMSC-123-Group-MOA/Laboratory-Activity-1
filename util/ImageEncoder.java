@@ -1,4 +1,5 @@
 package util;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,6 +8,9 @@ import java.nio.ByteBuffer;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.nio.charset.StandardCharsets;
+
+import javax.sound.sampled.AudioFormat.Encoding;
 
 
 public class ImageEncoder {
@@ -56,5 +60,12 @@ public class ImageEncoder {
             System.out.println("fuck");
             e.printStackTrace();
         }
+    }
+    public static boolean[] convertStringToBoolArray(String binaryString) {
+        boolean[] boolArray = new boolean[binaryString.length()];
+        for (int i = 0; i < binaryString.length(); i++) {
+            boolArray[i] = binaryString.charAt(i) == '1';
+        }
+        return boolArray;
     }
 }
