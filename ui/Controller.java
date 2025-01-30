@@ -18,10 +18,12 @@ public class Controller {
     ImageTrainer imageTrain;
     File defaultpath, imageFile;
     ResourceLoaders rloader;
+    int loaded;
 
     public Controller(MainFrame mainFrame, File defaultpath) {
         this.mainFrame = mainFrame;
         this.defaultpath = defaultpath;
+        loaded = 0;
         rloader = new ResourceLoaders(defaultpath);
     }
 
@@ -38,6 +40,7 @@ public class Controller {
         this.imageFile = imageChooser.returnImageFile();
         imagePanel.renderImage(imageChooser.returnBufferedImage());
         mainFrame.repaint();
+        loaded = 1;
         System.out.println("New button pressed");
     }
 
@@ -45,7 +48,16 @@ public class Controller {
      * This is for the Train Button
      */
     public void train() {
-        this.imageTrain = new ImageTrainer(imageChooser);
+        if (this.loaded < 1) {
+            JOptionPane.showConfirmDialog(mainFrame, "Cannot press this button yet!\nNo file image loaded.", "Cannot Invoke Operation", JOptionPane.OK_OPTION);
+            return;
+        }
+        File path = rloader.chooseFolder(mainFrame, "Choose Output Directory");
+        if (path == null) {
+            JOptionPane.showMessageDialog(mainFrame, "Invalid input. Terminating operation...", "Fatal Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        this.imageTrain = new ImageTrainer(imageChooser, path);
         System.out.println("Train button pressed");
     }
 
@@ -53,7 +65,7 @@ public class Controller {
      * This is for the Compress button
      */
     public void compress() {
-        File path = rloader.chooseFolder(mainFrame);
+        File path = rloader.chooseFolder(mainFrame, "Choose Output Directory");
         if (path == null) {
             JOptionPane.showMessageDialog(mainFrame, "Invalid input. Terminating operation...", "Fatal Error", JOptionPane.WARNING_MESSAGE);
         } else {

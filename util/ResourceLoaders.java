@@ -12,8 +12,9 @@ public class ResourceLoaders {
         this.defaultdir = defaultdir;
     }
 
-    public File chooseFolder(Container parent) {
+    public File chooseFolder(Container parent, String text) {
         JFileChooser choose = new JFileChooser(defaultdir);
+        choose.setDialogTitle(text);
         choose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int option = choose.showOpenDialog(parent);
         if (option == JFileChooser.APPROVE_OPTION) {

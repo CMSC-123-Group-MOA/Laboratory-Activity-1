@@ -1,5 +1,4 @@
 package util;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,9 +7,6 @@ import java.nio.ByteBuffer;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;
-import java.nio.charset.StandardCharsets;
-
-import javax.sound.sampled.AudioFormat.Encoding;
 
 
 public class ImageEncoder {
@@ -32,8 +28,8 @@ public class ImageEncoder {
             String compressedPixelData = str_pxl_data.toString();
             
             // Save encoded data to file
-            File binpath = File.createTempFile("compressed_" + image.getName(), ".bin", savepath); // this just saves it to the chosen filedir
-
+            File binpath = new File(savepath, imageChooser.getImageFileName() + ".cmpimg"); // this is the file itself
+            binpath.createNewFile();
             BitSet bits = new BitSet(compressedPixelData.length());
             int bitcounter = 0;
             for(Character c : compressedPixelData.toCharArray()) {
@@ -61,11 +57,5 @@ public class ImageEncoder {
             e.printStackTrace();
         }
     }
-    public static boolean[] convertStringToBoolArray(String binaryString) {
-        boolean[] boolArray = new boolean[binaryString.length()];
-        for (int i = 0; i < binaryString.length(); i++) {
-            boolArray[i] = binaryString.charAt(i) == '1';
-        }
-        return boolArray;
-    }
+
 }

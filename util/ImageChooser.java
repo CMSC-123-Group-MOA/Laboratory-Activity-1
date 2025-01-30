@@ -11,9 +11,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-/**
- * FileChooser
- */
 public class ImageChooser {
     private File file;
     private ImageNew processedImage;
@@ -41,13 +38,15 @@ public class ImageChooser {
     public int[][] returnPixelData(){
         return processedImage.returnPixelData();
     }
-    public int[] returnFrequencyData(){
-        return processedImage.returnFrequencyData();
-    }
 
     public File returnImageFile(){
         return file;
     }
+
+    public String getImageFileName() {
+        return file.getName().substring(0, file.getName().lastIndexOf('.'));
+    }
+
     public HashMap<Integer, Integer> returnColorMap(){
         return processedImage.returnColorMap();
     }

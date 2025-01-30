@@ -23,6 +23,12 @@ public class HuffEncoder {
         return priorityQueue.poll();
     }
 
+    /**
+     * DEPRECATED. DO NOT USE.
+     * @param pixelFrequencies
+     * @return
+     */
+    @Deprecated
     public static HuffmanNode buildTree(int[] pixelFrequencies){
         PriorityQueue<HuffmanNode> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(node -> node.frequency));
 
