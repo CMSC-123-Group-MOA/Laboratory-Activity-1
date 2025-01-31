@@ -31,8 +31,8 @@ public class ImageTrainer {
         try {
             File savepath = new File(path, imageChooser.getImageFileName() + ".huf");
             savepath.createNewFile();
-            binWriteToHUF(imageChooser.returnColorMap(), savepath); // This is for writing to .huf as binary data
-            // objWriteToHUF(imageChooser.returnColorMap(), savepath); // This is for writing to .huf as object data
+            // binWriteToHUF(imageChooser.returnColorMap(), savepath); // This is for writing to .huf as binary data
+            objWriteToHUF(imageChooser.returnColorMap(), savepath); // This is for writing to .huf as object data
         } catch (IOException e) {
             // TODO Auto-generated catch block
             System.out.println("errr...");
@@ -53,7 +53,7 @@ public class ImageTrainer {
                         //out.write(ByteBuffer.allocate(4).putInt(freq).array()); // 4 bytes of freq
                         dataOutputStream.writeInt(sRGB);
                         dataOutputStream.writeInt(freq);
-                        System.out.println("sRGB: " + sRGB + "  freq:" + freq);
+                        // System.out.println("sRGB: " + sRGB + "  freq:" + freq);
                     } catch (IOException e) {
                         // Dear god...
                         e.printStackTrace();
@@ -62,6 +62,17 @@ public class ImageTrainer {
             out.close();
         } catch (IOException ie) {
             // How many...?
+            ie.printStackTrace();
+        }
+    }
+
+    private void objWriteToHUF(HashMap<Integer, Integer> colorMap, File savepath) {
+        try {
+            ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(savepath));
+            objOut.writeObject(colorMap);
+            objOut.close();  
+        } catch (IOException ie) {
+            // breh
             ie.printStackTrace();
         }
     }

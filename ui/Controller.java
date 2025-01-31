@@ -85,7 +85,6 @@ public class Controller {
     public void decode() {
         File hufPath = rloader.chooseFile(mainFrame, "Choose the .huf file");
         File cmpPath = rloader.chooseFile(mainFrame, "Choose the .cmping file");
-        ImageDecoder imageDecoder = new ImageDecoder();
         BufferedImage recodedImage = ImageDecoder.decode(hufPath, cmpPath);
         imagePanel.renderImage(recodedImage);
         mainFrame.repaint();

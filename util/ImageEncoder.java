@@ -30,8 +30,8 @@ public class ImageEncoder {
             // Save encoded data to file
             File binpath = new File(savepath, imageChooser.getImageFileName() + ".cmpimg"); // this is the file itself
             binpath.createNewFile();
-            BitSet bits = new BitSet(compressedPixelData.length());
-            int bitcounter = 0;
+            // BitSet bits = new BitSet(compressedPixelData.length());
+            // int bitcounter = 0;
             //for(Character c : compressedPixelData.toCharArray()) {
             //    if(c.equals('1')) {
             //        bits.set(bitcounter);
@@ -52,7 +52,7 @@ public class ImageEncoder {
 
             System.out.println("This is from image encoder:");
             System.out.println("Image encoded successfully");
-            System.out.println(compressedPixelData);
+            // System.out.println(compressedPixelData);
 
 
         } catch (IOException e) {

@@ -5,10 +5,10 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import huff.HuffEncoder;
 import huff.HuffmanCoding;
@@ -23,12 +23,8 @@ public class ImageDecoder {
 
         try {
             // Decode .huf file
-            DataInputStream hufbin = new DataInputStream(new FileInputStream(hufPath));
-            int hmsize = hufbin.readInt(); // reads the first 4 bytes to get int of how many key-value pairs there are
-            for (int i = 0; i < hmsize; i++) {
-                freqMap.put(hufbin.readInt(), hufbin.readInt()); // reads the next ints in pairs to output
-            }
-            hufbin.close();
+            // freqMap = decodeBinHuf(hufPath); // decode based on bin method
+            freqMap = decodeObjHuf(hufPath);
             hufftree = HuffEncoder.buildTree(freqMap);
             HuffmanCoding.reverseCodes(hufftree, "", huffMap);
 
@@ -53,7 +49,7 @@ public class ImageDecoder {
                 }
             }
             System.out.println("this is from imagedecoder:");
-            System.out.println(hcArray);
+            // System.out.println(hcArray);
             System.out.println(hcArray.length - offset);
 
         } catch (IOException ie) {
@@ -64,10 +60,37 @@ public class ImageDecoder {
         return decodedImage;
     }
 
-    private static String toBinary( byte[] bytes ) {
-        StringBuilder sb = new StringBuilder(bytes.length * Byte.SIZE);
-        for( int i = 0; i < Byte.SIZE * bytes.length; i++ )
-            sb.append((bytes[i / Byte.SIZE] << i % Byte.SIZE & 0x80) == 0 ? '0' : '1');
-        return sb.toString();
+    private static HashMap<Integer, Integer> decodeBinHuf(File hufPath) {
+        HashMap<Integer, Integer> freqMap = new HashMap<>();
+        try {
+            DataInputStream hufbin = new DataInputStream(new FileInputStream(hufPath));
+            int hmsize = hufbin.readInt(); // reads the first 4 bytes to get int of how many key-value pairs there are
+            for (int i = 0; i < hmsize; i++) {
+                freqMap.put(hufbin.readInt(), hufbin.readInt()); // reads the next ints in pairs to output
+            }
+            hufbin.close();
+        } catch (IOException e) {
+            // hmm
+            e.printStackTrace();
+        }
+        return freqMap;
     }
+
+    @SuppressWarnings("unchecked")
+    private static HashMap<Integer, Integer> decodeObjHuf(File hufpath) {
+        HashMap<Integer, Integer> freqMap = new HashMap<>();
+        try {
+            ObjectInputStream hufbin = new ObjectInputStream(new FileInputStream(hufpath));
+            freqMap = (HashMap<Integer, Integer>) hufbin.readObject();
+            hufbin.close();
+        } catch (IOException ie) {
+            // uhhhh
+            ie.printStackTrace();
+        } catch (ClassNotFoundException cnfe) {
+            // uh oh
+            cnfe.printStackTrace();
+        }
+        return freqMap;
+    }
+
 }
