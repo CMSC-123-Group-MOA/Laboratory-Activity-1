@@ -53,6 +53,7 @@ public class ImageTrainer {
                         //out.write(ByteBuffer.allocate(4).putInt(freq).array()); // 4 bytes of freq
                         dataOutputStream.writeInt(sRGB);
                         dataOutputStream.writeInt(freq);
+                        System.out.println("sRGB: " + sRGB + "  freq:" + freq);
                     } catch (IOException e) {
                         // Dear god...
                         e.printStackTrace();

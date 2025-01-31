@@ -48,7 +48,9 @@ public class ImageEncoder {
             ostream.write(bytes);
             ostream.close();
 
+            System.out.println("This is from image encoder:");
             System.out.println("Image encoded successfully");
+            System.out.println(compressedPixelData);
 
 
         } catch (IOException e) {
