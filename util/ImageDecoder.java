@@ -5,6 +5,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -34,7 +35,8 @@ public class ImageDecoder {
             // Decode .cmpimg file
             DataInputStream imgbin = new DataInputStream(new FileInputStream(cmpPath));
             int image_width = imgbin.readInt(), image_height = imgbin.readInt(); // read the first 8 bytes to get the width and height of image
-            char[] hcArray = toBinary(imgbin.readAllBytes()).toCharArray();
+            //char[] hcArray = toBinary(imgbin.readAllBytes()).toCharArray();
+            char[] hcArray = new BigInteger(imgbin.readAllBytes()).toString(2).toCharArray();
             imgbin.close();
             decodedImage = new BufferedImage(image_width, image_height, BufferedImage.TYPE_INT_ARGB);
             int offset = 0;
