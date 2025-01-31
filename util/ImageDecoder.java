@@ -50,6 +50,8 @@ public class ImageDecoder {
                     decodedImage.setRGB(x, y, huffMap.get(hcd.toString()));
                 }
             }
+            System.out.println(hcArray.length - offset);
+
         } catch (IOException ie) {
             // bro....
             ie.printStackTrace();

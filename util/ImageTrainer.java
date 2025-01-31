@@ -1,5 +1,7 @@
 package util;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -41,12 +43,16 @@ public class ImageTrainer {
     private void binWriteToHUF(HashMap<Integer, Integer> colorMap, File savepath) {
         try {
             OutputStream out = new FileOutputStream(savepath);
-            out.write(ByteBuffer.allocate(4).putInt(colorMap.size()).array()); // first 4 bytes store how many key-value pairs exist
+            DataOutputStream dataOutputStream = new DataOutputStream(out);
+            //out.write(ByteBuffer.allocate(4).putInt(colorMap.size()).array()); // first 4 bytes store how many key-value pairs exist
+            dataOutputStream.writeInt(colorMap.size());
             colorMap.forEach(
                 (sRGB, freq) -> {
                     try {
-                        out.write(ByteBuffer.allocate(4).putInt(sRGB).array()); // 4 bytes of sRGB
-                        out.write(ByteBuffer.allocate(4).putInt(freq).array()); // 4 bytes of freq
+                        //out.write(ByteBuffer.allocate(4).putInt(sRGB).array()); // 4 bytes of sRGB
+                        //out.write(ByteBuffer.allocate(4).putInt(freq).array()); // 4 bytes of freq
+                        dataOutputStream.writeInt(sRGB);
+                        dataOutputStream.writeInt(freq);
                     } catch (IOException e) {
                         // Dear god...
                         e.printStackTrace();
@@ -58,18 +64,6 @@ public class ImageTrainer {
             ie.printStackTrace();
         }
     }
-
-    // private void objWriteToHUF(HashMap<Integer, Integer> colorMap, File savepath) {
-    //     try {
-    //         ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(savepath));
-    //         objOut.writeObject(colorMap);
-    //         objOut.close();
-            
-    //     } catch (IOException ie) {
-    //         // breh
-    //         ie.printStackTrace();
-    //     }
-    // }
 
     public Map<Integer, String> returnHuffCodes(){
         return huffmanCodes;
