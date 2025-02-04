@@ -45,6 +45,7 @@ public class Controller {
         imagePanel.renderImage(imageChooser.returnBufferedImage());
         mainFrame.repaint();
         loaded = 1;
+        JOptionPane.showMessageDialog(mainFrame, "Image Loaded Successfully!", "Operation Success", JOptionPane.INFORMATION_MESSAGE);
         System.out.println("New button pressed");
     }
 
@@ -53,7 +54,7 @@ public class Controller {
      */
     public void train() {
         if (this.loaded < 1) {
-            JOptionPane.showConfirmDialog(mainFrame, "Cannot press this button yet!\nNo file image loaded.", "Cannot Invoke Operation", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(mainFrame, "Cannot press this button yet!\nNo file image loaded.", "Cannot Invoke Operation", JOptionPane.ERROR_MESSAGE);
             return;
         }
         File path = rloader.chooseFolder(mainFrame, "Choose Output Directory");
@@ -63,6 +64,7 @@ public class Controller {
         }
         this.imageTrain = new ImageTrainer(imageChooser, path);
         loaded = 2;
+        JOptionPane.showMessageDialog(mainFrame, "Huffman Tree Generated.\nFile has been saved.", "Operation Success", JOptionPane.INFORMATION_MESSAGE);
         System.out.println("Train button pressed");
     }
 
@@ -71,7 +73,7 @@ public class Controller {
      */
     public void compress() {
         if (loaded != 2) {
-            JOptionPane.showConfirmDialog(mainFrame, "Cannot press this button yet!\nNo image trained.", "Cannot Invoke Operation", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(mainFrame, "Cannot press this button yet!\nNo image trained.", "Cannot Invoke Operation", JOptionPane.ERROR_MESSAGE);
             return;
         }
         File path = rloader.chooseFolder(mainFrame, "Choose Output Directory");
@@ -81,6 +83,7 @@ public class Controller {
             this.imageEncoder = new ImageEncoder(imageFile, imageChooser, imageTrain, path);
         }
         loaded = 0;
+        JOptionPane.showMessageDialog(mainFrame, "Compressed Image Successfully!", "Operation Success", JOptionPane.INFORMATION_MESSAGE);
         System.out.println("Compress button pressed");
     }
 
@@ -88,12 +91,17 @@ public class Controller {
      * This is for the Open button
      */
     public void decode() {
-        File hufPath = rloader.chooseFile(mainFrame, "Choose the .huf file");
-        File cmpPath = rloader.chooseFile(mainFrame, "Choose the .cmping file");
+        File hufPath = rloader.chooseFile(mainFrame, "Choose the .huf file", "Huffman File", "huf");
+        File cmpPath = rloader.chooseFile(mainFrame, "Choose the .cmping file", "Compressed Image File", "cmpimg");
+        if (hufPath == null || cmpPath == null) {
+            JOptionPane.showMessageDialog(mainFrame, "Some files were not loaded!", "Cannot Invoke Operation", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         BufferedImage recodedImage = ImageDecoder.decode(hufPath, cmpPath);
         imagePanel.renderImage(recodedImage);
         mainFrame.repaint();
-        loaded = 1;
+        loaded = 0;
+        JOptionPane.showMessageDialog(mainFrame, "Image Decoded!", "Operation Success", JOptionPane.INFORMATION_MESSAGE);
         System.out.println("Open button pressed");
     }
 

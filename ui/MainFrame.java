@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
     private void initLayout() {
         setTitle(AppVariables.TITLE);
         getContentPane().setPreferredSize(AppVariables.DEFAULT_DIMENSION);
-        setResizable(false);
+        // setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
     }

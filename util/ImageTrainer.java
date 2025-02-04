@@ -59,6 +59,7 @@ public class ImageTrainer {
                         e.printStackTrace();
                     }
                 });
+            out.flush();
             out.close();
         } catch (IOException ie) {
             // How many...?
