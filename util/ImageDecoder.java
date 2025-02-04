@@ -24,8 +24,10 @@ public class ImageDecoder {
         try {
             // Decode .huf file
             // freqMap = decodeBinHuf(hufPath); // decode based on bin method
-            freqMap = decodeObjHuf(hufPath); // decoe based on obj method
-            hufftree = HuffEncoder.buildTree(freqMap);
+            
+            // freqMap = decodeObjHuf(hufPath); // decoe based on obj method
+            // hufftree = HuffEncoder.buildTree(freqMap);
+            hufftree = decodeTreeHuf(hufPath);
             HuffmanCoding.reverseCodes(hufftree, "", huffMap);
 
             // Decode .cmpimg file
@@ -94,6 +96,23 @@ public class ImageDecoder {
             cnfe.printStackTrace();
         }
         return freqMap;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static HuffmanNode decodeTreeHuf(File hufpath) {
+        HuffmanNode root = new HuffmanNode();
+        try {
+            ObjectInputStream hufbin = new ObjectInputStream(new FileInputStream(hufpath));
+            root = (HuffmanNode) hufbin.readObject();
+            hufbin.close();
+        } catch (IOException ie) {
+            // uhhhh
+            ie.printStackTrace();
+        } catch (ClassNotFoundException cnfe) {
+            // uh oh
+            cnfe.printStackTrace();
+        }
+        return root;
     }
 
     private static String bytesToBinString(byte[] bytes) {

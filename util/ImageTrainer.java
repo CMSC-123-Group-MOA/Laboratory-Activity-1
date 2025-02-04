@@ -32,7 +32,8 @@ public class ImageTrainer {
             File savepath = new File(path, imageChooser.getImageFileName() + ".huf");
             savepath.createNewFile();
             // binWriteToHUF(imageChooser.returnColorMap(), savepath); // This is for writing to .huf as binary data
-            objWriteToHUF(imageChooser.returnColorMap(), savepath); // This is for writing to .huf as object data
+            // objWriteToHUF(imageChooser.returnColorMap(), savepath); // This is for writing to .huf as object data
+            objWriteToHUF(root, savepath);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             System.out.println("errr...");
@@ -71,6 +72,18 @@ public class ImageTrainer {
         try {
             ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(savepath));
             objOut.writeObject(colorMap);
+            objOut.reset();
+            objOut.close();
+        } catch (IOException ie) {
+            // breh
+            ie.printStackTrace();
+        }
+    }
+
+    private void objWriteToHUF(HuffmanNode root, File savepath) {
+        try {
+            ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(savepath));
+            objOut.writeObject(root);
             objOut.reset();
             objOut.close();
         } catch (IOException ie) {
