@@ -24,7 +24,7 @@ public class ImageDecoder {
         try {
             // Decode .huf file
             // freqMap = decodeBinHuf(hufPath); // decode based on bin method
-            freqMap = decodeObjHuf(hufPath);
+            freqMap = decodeObjHuf(hufPath); // decoe based on obj method
             hufftree = HuffEncoder.buildTree(freqMap);
             HuffmanCoding.reverseCodes(hufftree, "", huffMap);
 
@@ -32,7 +32,10 @@ public class ImageDecoder {
             DataInputStream imgbin = new DataInputStream(new FileInputStream(cmpPath));
             int image_width = imgbin.readInt(), image_height = imgbin.readInt(); // read the first 8 bytes to get the width and height of image
             //char[] hcArray = toBinary(imgbin.readAllBytes()).toCharArray();
-            char[] hcArray = new BigInteger(imgbin.readAllBytes()).toString(2).toCharArray();
+
+            // char[] hcArray = new BigInteger(imgbin.readAllBytes()).toString(2).toCharArray(); // use bigint class to do it
+            char[] hcArray = bytesToBinString(imgbin.readAllBytes()).toCharArray();
+            System.err.println("Decoded Binary String Length: " + hcArray.length);
             imgbin.close();
             decodedImage = new BufferedImage(image_width, image_height, BufferedImage.TYPE_INT_ARGB);
             int offset = 0;
@@ -91,6 +94,13 @@ public class ImageDecoder {
             cnfe.printStackTrace();
         }
         return freqMap;
+    }
+
+    private static String bytesToBinString(byte[] bytes) {
+        StringBuilder sb = new StringBuilder(bytes.length * Byte.SIZE);
+        for( int i = 0; i < Byte.SIZE * bytes.length; i++ )
+            sb.append((bytes[i / Byte.SIZE] << i % Byte.SIZE & 0x80) == 0 ? '0' : '1');
+        return sb.toString();
     }
 
 }

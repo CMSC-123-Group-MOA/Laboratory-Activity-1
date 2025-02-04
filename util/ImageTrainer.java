@@ -70,7 +70,8 @@ public class ImageTrainer {
         try {
             ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(savepath));
             objOut.writeObject(colorMap);
-            objOut.close();  
+            objOut.reset();
+            objOut.close();
         } catch (IOException ie) {
             // breh
             ie.printStackTrace();

@@ -42,7 +42,13 @@ public class ImageEncoder {
             byte[] width = ByteBuffer.allocate(4).putInt(image_width).array(); // First 4 bytes is  width
             byte[] height = ByteBuffer.allocate(4).putInt(image_height).array(); // next 4 bytes is  height
             //byte[] bytes = new byte[(bits.length() + 7) / 8]; // then huffman coding
-            byte[] bytes = new BigInteger(compressedPixelData, 2).toByteArray();
+            System.out.println("Binary String Length (encode): " + compressedPixelData.length());
+            // using bigint
+            // byte[] bytes = new BigInteger(compressedPixelData, 2).toByteArray();
+            
+            // using bst to bytes method
+            byte[] bytes = binStringToBytes(compressedPixelData);
+            System.out.println("Huffman Bytes Length: " + bytes.length);
             //bytes = bits.toByteArray();
             OutputStream ostream = new FileOutputStream(binpath);
             ostream.write(width);
@@ -59,6 +65,20 @@ public class ImageEncoder {
             System.out.println("fuck");
             e.printStackTrace();
         }
+    }
+
+    private static byte[] binStringToBytes(String bitString) {
+        if (bitString.length()%8 > 0) {
+            // adds extra bits if string length is not divisible by 8
+            bitString = bitString.concat("0".repeat(8 - (bitString.length() % 8)));
+        }
+
+        byte[] byteArray = new byte[bitString.length()/8];
+        for(int i = 0; i < byteArray.length; i++) {
+            byteArray[i] = (byte)Integer.parseInt(bitString.substring(i * 8, i * 8 + 8), 2);
+        }
+
+        return  byteArray;
     }
 
 }

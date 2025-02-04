@@ -62,6 +62,7 @@ public class Controller {
             return;
         }
         this.imageTrain = new ImageTrainer(imageChooser, path);
+        loaded = 2;
         System.out.println("Train button pressed");
     }
 
@@ -69,13 +70,17 @@ public class Controller {
      * This is for the Compress button
      */
     public void compress() {
+        if (loaded != 2) {
+            JOptionPane.showConfirmDialog(mainFrame, "Cannot press this button yet!\nNo image trained.", "Cannot Invoke Operation", JOptionPane.OK_OPTION);
+            return;
+        }
         File path = rloader.chooseFolder(mainFrame, "Choose Output Directory");
         if (path == null) {
             JOptionPane.showMessageDialog(mainFrame, "Invalid input. Terminating operation...", "Fatal Error", JOptionPane.WARNING_MESSAGE);
         } else {
             this.imageEncoder = new ImageEncoder(imageFile, imageChooser, imageTrain, path);
         }
-        
+        loaded = 0;
         System.out.println("Compress button pressed");
     }
 
