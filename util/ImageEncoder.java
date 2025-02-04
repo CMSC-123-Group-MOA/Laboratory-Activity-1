@@ -42,7 +42,9 @@ public class ImageEncoder {
             byte[] width = ByteBuffer.allocate(4).putInt(image_width).array(); // First 4 bytes is  width
             byte[] height = ByteBuffer.allocate(4).putInt(image_height).array(); // next 4 bytes is  height
             //byte[] bytes = new byte[(bits.length() + 7) / 8]; // then huffman coding
+            System.out.println("Binary String Length (encode): " + compressedPixelData.length());
             byte[] bytes = new BigInteger(compressedPixelData, 2).toByteArray();
+            System.out.println("Huffman Bytes Length: " + bytes.length);
             //bytes = bits.toByteArray();
             OutputStream ostream = new FileOutputStream(binpath);
             ostream.write(width);
