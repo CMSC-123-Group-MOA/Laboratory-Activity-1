@@ -98,7 +98,6 @@ public class ImageDecoder {
         return freqMap;
     }
 
-    @SuppressWarnings("unchecked")
     private static HuffmanNode decodeTreeHuf(File hufpath) {
         HuffmanNode root = new HuffmanNode();
         try {

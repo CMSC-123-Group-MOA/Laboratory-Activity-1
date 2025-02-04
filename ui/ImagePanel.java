@@ -33,7 +33,7 @@ public class ImagePanel extends JPanel {
             double scaleFactor = getHeight() / height;
             int scaledWidth = (int) (width * scaleFactor);
             System.out.println("Scaled to width : " + scaleFactor + " scaledHeight: " + scaledWidth);
-            this.scaledImage = temp.getScaledInstance(scaledWidth, getHeight(), Image.SCALE_DEFAULT);
+            this.scaledImage = temp.getScaledInstance(scaledWidth, getHeight(), Image.SCALE_SMOOTH);
             this.x = (getHeight() - scaledWidth)/2;
         } else{
             System.out.println("Scaled to width");
@@ -41,7 +41,7 @@ public class ImagePanel extends JPanel {
             double scaleFactor = getWidth() / width;
             int scaledHeight = (int) (height * scaleFactor);
             System.out.println("Scaled to width : " + scaleFactor + " scaledHeight: " + scaledHeight);
-            this.scaledImage = temp.getScaledInstance(getWidth(), scaledHeight, Image.SCALE_DEFAULT);
+            this.scaledImage = temp.getScaledInstance(getWidth(), scaledHeight, Image.SCALE_SMOOTH);
 
             this.y = (getHeight() - scaledHeight)/2;
         }

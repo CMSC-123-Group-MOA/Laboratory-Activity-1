@@ -15,7 +15,7 @@ public class ImageChooser {
     private File file;
     private ImageNew processedImage;
     public ImageChooser(Component parent, File defaultDir){
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png", "bmp", "jpeg");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png", "bmp", "jpeg", "tiff");
         JFileChooser fileChooser = new JFileChooser(defaultDir);
         fileChooser.setFileFilter(filter);
         fileChooser.setName("Open New File");
