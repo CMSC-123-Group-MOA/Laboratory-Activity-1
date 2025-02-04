@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+import java.util.Random;
 
 public class ImageTestCreate {
 
@@ -10,31 +11,25 @@ public class ImageTestCreate {
         System.out.println("Current directory: " + System.getProperty("user.dir"));
 
         // Create a 4x4 image with different colors
-        int width = 4;
-        int height = 4;
+        int width = 600;
+        int height = 600;
+        Random rand = new Random();
 
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);  // Use RGB format for simplicity
 
         // Set some pixels to test with different colors
-        image.setRGB(0, 0, Color.RED.getRGB());
-        image.setRGB(1, 0, Color.GREEN.getRGB());
-        image.setRGB(2, 0, Color.BLUE.getRGB());
-        image.setRGB(3, 0, Color.YELLOW.getRGB());
+       for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int red = rand.nextInt(256);   // Random red value between 0 and 255
+                int green = rand.nextInt(256); // Random green value between 0 and 255
+                int blue = rand.nextInt(256);  // Random blue value between 0 and 255
 
-        image.setRGB(0, 1, Color.CYAN.getRGB());
-        image.setRGB(1, 1, Color.MAGENTA.getRGB());
-        image.setRGB(2, 1, Color.ORANGE.getRGB());
-        image.setRGB(3, 1, Color.PINK.getRGB());
+                // Set the pixel with the random color
+                Color randomColor = new Color(red, green, blue);
+                image.setRGB(x, y, randomColor.getRGB());                
+            }
+        }
 
-        image.setRGB(0, 2, Color.BLACK.getRGB());
-        image.setRGB(1, 2, Color.WHITE.getRGB());
-        image.setRGB(2, 2, Color.GRAY.getRGB());
-        image.setRGB(3, 2, Color.LIGHT_GRAY.getRGB());
-
-        image.setRGB(0, 3, Color.DARK_GRAY.getRGB());
-        image.setRGB(1, 3, Color.RED.getRGB());
-        image.setRGB(2, 3, Color.GREEN.getRGB());
-        image.setRGB(3, 3, Color.BLUE.getRGB());
 
         // Try writing the image to an explicit file path
         File outputFile = new File("test_image.bmp");
